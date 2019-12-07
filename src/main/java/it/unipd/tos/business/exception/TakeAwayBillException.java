@@ -3,12 +3,8 @@
 ////////////////////////////////////////////////////////////////////
 package it.unipd.tos.business.exception;
 
+@SuppressWarnings("serial")
 public class TakeAwayBillException extends Exception {
-
-    public TakeAwayBillException() {
-        super();
-    }
-
     public TakeAwayBillException(String mex) {
         super(mex);
     }

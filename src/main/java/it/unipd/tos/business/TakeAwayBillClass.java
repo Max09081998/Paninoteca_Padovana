@@ -15,7 +15,7 @@ public class TakeAwayBillClass implements TakeAwayBill {
             throws TakeAwayBillException {
         double totPrice=0.0d;
         int numSandwitch = 0;
-        double minPriceSandwitch=-1.0d;
+        double minPriceSandwitch=Double.MAX_VALUE;
         double sandwitchFriedCost=0.0d;
         
         if(itemsOrdered.size()>30){
@@ -26,13 +26,8 @@ public class TakeAwayBillClass implements TakeAwayBill {
         for(MenuItem item:itemsOrdered){            
             if(item.getItemType()==ItemType.Panini){
                 sandwitchFriedCost+=item.getPrice();
-                if(minPriceSandwitch==-1.0d){
+                if(minPriceSandwitch>item.getPrice()){
                     minPriceSandwitch=item.getPrice();
-                }
-                else{
-                    if(minPriceSandwitch>item.getPrice()){
-                        minPriceSandwitch=item.getPrice();
-                    }
                 }
                 numSandwitch++;
             }
@@ -47,6 +42,9 @@ public class TakeAwayBillClass implements TakeAwayBill {
         }
         if(sandwitchFriedCost > 50.0d){
             totPrice*=0.9d;
+        }
+        if(totPrice<10.0d && totPrice>0.0d){
+            totPrice+=0.5d;
         }
         
         return totPrice;

@@ -95,5 +95,31 @@ public class TakeAwayBillClassTest {
         
         takeAwayBillClass.getOrderPrice(itemOrderedList);
     }
+    
+    @Test
+    public void testTotalCostLessThanTen() {
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        for(int i=0; i<4; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Bevande, "Aranciata", 2.0d));
+        }
+        try{
+            assertEquals(8.5d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
+        }
+        catch(TakeAwayBillException exception){
+            fail(exception.getMessage());
+        }
+    }
+    
+    @Test
+    public void testCostEqualToZero() {
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        itemOrderedList.add(new MenuItem(ItemType.Bevande, "Acqua", 0.0d));
+        try{
+            assertEquals(0.0d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
+        }
+        catch(TakeAwayBillException exception){
+            fail(exception.getMessage());
+        }
+    }
 
 }

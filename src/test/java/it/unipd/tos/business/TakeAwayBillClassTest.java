@@ -24,13 +24,27 @@ public class TakeAwayBillClassTest {
     
     
     @Test
-    public void testGetFirstOrderPrice() {
+    public void testGetTotOrderPrice() {
         List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
         for(int i=0; i<5; i++){
             itemOrderedList.add(new MenuItem(ItemType.Bevande, "Coca Cola", 2.5d));
         }
         try{
             assertEquals(12.5d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
+        }
+        catch(TakeAwayBillException exception){
+            fail(exception.getMessage());
+        }
+    }
+    
+    @Test
+    public void testDiscountIfOrdereMoreThanFiveSandwitch() {
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        for(int i=0; i<7; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Panini, "Vegetariano", 3.0d));
+        }
+        try{
+            assertEquals(19.5d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
         }
         catch(TakeAwayBillException exception){
             fail(exception.getMessage());

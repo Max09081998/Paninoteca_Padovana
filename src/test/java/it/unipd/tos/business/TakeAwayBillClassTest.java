@@ -50,5 +50,40 @@ public class TakeAwayBillClassTest {
             fail(exception.getMessage());
         }
     }
+    
+    @Test
+    public void testDiscountIfOrdereSandwitchAndFriedUpToFifty() {
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        for(int i=0; i<3; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Panini, "Vegetariano", 3.0d));
+        }
+        for(int i=0; i<8; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Fritti, "Patatine", 9.0d));
+        }
+        try{
+            assertEquals(72.9d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
+        }
+        catch(TakeAwayBillException exception){
+            fail(exception.getMessage());
+        }
+    }
+    
+    @Test
+    public void testDiscountIfOrdereMoreFiveSandwitchAndFriedUpToFifty() {
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        for(int i=0; i<5; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Panini, "Vegetariano", 3.0d));
+        }
+        itemOrderedList.add(new MenuItem(ItemType.Panini, "Primavera", 2.0d));
+        for(int i=0; i<2; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Fritti, "Patatine", 4.0d));
+        }
+        try{
+            assertEquals(24.0d, takeAwayBillClass.getOrderPrice(itemOrderedList), 0);
+        }
+        catch(TakeAwayBillException exception){
+            fail(exception.getMessage());
+        }
+    }
 
 }

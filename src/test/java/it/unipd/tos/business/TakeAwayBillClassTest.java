@@ -85,5 +85,15 @@ public class TakeAwayBillClassTest {
             fail(exception.getMessage());
         }
     }
+    
+    @Test(expected = TakeAwayBillException.class)
+    public void testErrorForMoreThanThirtyElements() throws TakeAwayBillException{
+        List<MenuItem> itemOrderedList = new ArrayList<MenuItem>();
+        for(int i=0; i<31; i++){
+            itemOrderedList.add(new MenuItem(ItemType.Panini, "Vegano", 3.0d));
+        }
+        
+        takeAwayBillClass.getOrderPrice(itemOrderedList);
+    }
 
 }

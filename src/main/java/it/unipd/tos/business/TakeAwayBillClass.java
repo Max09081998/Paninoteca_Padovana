@@ -18,6 +18,11 @@ public class TakeAwayBillClass implements TakeAwayBill {
         double minPriceSandwitch=-1.0d;
         double sandwitchFriedCost=0.0d;
         
+        if(itemsOrdered.size()>30){
+            throw new TakeAwayBillException("Errore! Hai eseguito "
+                    + "un'ordinazione da più di 30 elementi");
+        }
+        
         for(MenuItem item:itemsOrdered){            
             if(item.getItemType()==ItemType.Panini){
                 sandwitchFriedCost+=item.getPrice();
